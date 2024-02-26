@@ -89,7 +89,7 @@ require('lazy').setup({
 
       -- Useful status updates for LSP
       -- NOTE: `opts = {}` is the same as calling `require('fidget').setup({})`
-      { 'j-hui/fidget.nvim', opts = {} },
+      { 'j-hui/fidget.nvim',       opts = {} },
 
       -- Additional lua configuration, makes nvim stuff amazing!
       'folke/neodev.nvim',
@@ -125,7 +125,7 @@ require('lazy').setup({
   },
 
   -- Useful plugin to show you pending keybinds.
-  { 'folke/which-key.nvim', opts = {} },
+  { 'folke/which-key.nvim',  opts = {} },
   {
     -- Adds git related signs to the gutter, as well as utilities for managing changes
     'lewis6991/gitsigns.nvim',
@@ -202,17 +202,16 @@ require('lazy').setup({
   },
 
   {
-    -- Theme inspired by Atom
-    'navarasu/onedark.nvim',
-    priority = 1000,
-    lazy = false,
-    config = function()
-      require('onedark').setup {
-        -- Set a style preset. 'dark' is default.
-        style = 'dark', -- dark, darker, cool, deep, warm, warmer, light
-      }
-      require('onedark').load()
-    end,
+    -- add dracula
+    { "Mofiqul/dracula.nvim" },
+
+    -- Configure LazyVim to load dracula
+    {
+      "LazyVim/LazyVim",
+      opts = {
+        colorscheme = "dracula",
+      },
+    },
   },
 
   {
@@ -283,7 +282,7 @@ require('lazy').setup({
   --    Uncomment the following line and add your plugins to `lua/custom/plugins/*.lua` to get going.
   --
   --    For additional information see: https://github.com/folke/lazy.nvim#-structuring-your-plugins
-{ import = 'custom.plugins' },
+  { import = 'custom.plugins' },
 }, {})
 
 -- [[ Setting options ]]
@@ -344,9 +343,9 @@ vim.keymap.set('n', '<leader>e', vim.diagnostic.open_float, { desc = 'Open float
 vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist, { desc = 'Open diagnostics list' })
 
 -- Tab keymaps
-vim.keymap.set('n', '<leader>th','<cmd>-tabnext<cr>', {desc = 'Go to previous tab'})
-vim.keymap.set('n', '<leader>tl','<cmd>+tabnext<cr>', {desc = 'Go to next tab'})
-vim.keymap.set('n', '<leader>tn','<cmd>tabnew<cr>', {desc = 'Create empty tab'})
+vim.keymap.set('n', '<leader>th', '<cmd>-tabnext<cr>', { desc = 'Go to previous tab' })
+vim.keymap.set('n', '<leader>tl', '<cmd>+tabnext<cr>', { desc = 'Go to next tab' })
+vim.keymap.set('n', '<leader>tn', '<cmd>tabnew<cr>', { desc = 'Create empty tab' })
 
 -- [[ Highlight on yank ]]
 -- See `:help vim.highlight.on_yank()`
