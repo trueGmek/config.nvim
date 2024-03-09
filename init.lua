@@ -342,11 +342,6 @@ vim.keymap.set('n', ']d', vim.diagnostic.goto_next, { desc = 'Go to next diagnos
 vim.keymap.set('n', '<leader>e', vim.diagnostic.open_float, { desc = 'Open floating diagnostic message' })
 vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist, { desc = 'Open diagnostics list' })
 
--- Tab keymaps
-vim.keymap.set('n', '<leader>th', '<cmd>-tabnext<cr>', { desc = 'Go to previous tab' })
-vim.keymap.set('n', '<leader>tl', '<cmd>+tabnext<cr>', { desc = 'Go to next tab' })
-vim.keymap.set('n', '<leader>tn', '<cmd>tabnew<cr>', { desc = 'Create empty tab' })
-
 -- [[ Highlight on yank ]]
 -- See `:help vim.highlight.on_yank()`
 local highlight_group = vim.api.nvim_create_augroup('YankHighlight', { clear = true })
