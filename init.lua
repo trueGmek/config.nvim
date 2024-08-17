@@ -357,11 +357,12 @@ vim.api.nvim_create_autocmd('TextYankPost', {
 })
 
 -- Setup comment
+---@diagnostic disable-next-line: missing-fields
 require('Comment').setup({
-  opleader = {
-    line = '<C-_>'
-  }
+  mappings = false
 })
+vim.keymap.set('n', '<C-_>', '<Plug>(comment_toggle_linewise_current)')
+vim.keymap.set('x', '<C-_>', '<Plug>(comment_toggle_linewise_visual)')
 
 -- [[ Configure Telescope ]]
 -- See `:help telescope` and `:help telescope.setup()`
@@ -563,6 +564,9 @@ local on_attach = function(_, bufnr)
     vim.lsp.buf.format()
   end, { desc = 'Format current buffer with LSP' })
 
+  require('which-key').register {
+    ['<leader>ff'] = { name = '[F]ormat [F]ile', _ = 'which_key_ignore' },
+  }
   nmap('<leader>ff', function()
     vim.lsp.buf.format()
   end
@@ -601,7 +605,14 @@ require('mason-lspconfig').setup()
 --  If you want to override the default filetypes that your language server will attach to you can
 --  define the property 'filetypes' to the map in question.
 local servers = {
-  -- clangd = {},
+  clangd = {
+    settings = {
+      style = { 'file' }
+    },
+  },
+  cmakelang = {},
+  glsl_analyzer = {},
+  cmake = {},
   -- gopls = {},
   -- pyright = {},
   -- rust_analyzer = {},
@@ -618,8 +629,16 @@ local servers = {
   },
 }
 
+-- LSP keymaps
+vim.keymap.set({ 'n', 'v' }, '<leader>wh', ':ClangdSwitchSourceHeader<CR>', { silent = true })
+
+require('which-key').register {
+  ['<leader>wh'] = { name = 'Switch Source and [H]eader', _ = 'which_key_ignore' }
+}
+
 -- Setup neovim lua configuration
 require('neodev').setup()
+
 
 -- nvim-cmp supports additional completion capabilities, so broadcast that to servers
 local capabilities = vim.lsp.protocol.make_client_capabilities()
