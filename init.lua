@@ -261,10 +261,17 @@ vim.keymap.set('n', '<leader>sG', ':LiveGrepGitRoot<cr>', { desc = '[S]earch by 
 vim.keymap.set('n', '<leader>sd', require('telescope.builtin').diagnostics, { desc = '[S]earch [D]iagnostics' })
 vim.keymap.set('n', '<leader>sr', require('telescope.builtin').resume, { desc = '[S]earch [R]esume' })
 
---LUA KEYMAPS
 vim.keymap.set('n', '<leader><leader>x', "<cmd>source %<CR>", { desc = 'E[x]ecute current file' })
-vim.keymap.set('n', '<leader>x', ":.lua<CR>", { desc = "E[x]ecute current line" })
-vim.keymap.set('v', '<leader>x', ":lua<CR>", { desc = "E[x]ecute selected lines" })
+
+-- TABS
+vim.keymap.set({'n', 'v'}, '<leader><tab><tab>', '<cmd>tabnew<CR>', {desc = 'Open new [tab]'})
+vim.keymap.set({'n', 'v'}, '<leader><tab>d', '<cmd>tabclose<CR>', {desc = 'Close current [tab]'})
+vim.keymap.set({'n', 'v'}, '<leader><tab>o', '<cmd>tabonly<CR>', {desc = 'Close all [tab]s besides current one'})
+vim.keymap.set({'n', 'v'}, '<leader><tab>]', '<cmd>+tabnext<CR>', {desc = 'Go to next [tab]'})
+vim.keymap.set({'n', 'v'}, '<leader><tab>[', '<cmd> -tabnext<CR>', {desc = 'Go to previous [tab]'})
+vim.keymap.set({'n', 'v'}, '<leader><tab>f', '<cmd>tabfirst<CR>', {desc = 'Go to [f]irst [tab]'})
+vim.keymap.set({'n', 'v'}, '<leader><tab>l', '<cmd>tablast<CR>', {desc = 'Go to [l]ast [tab]'})
+
 
 -- [[ Configure Treesitter ]]
 -- See `:help nvim-treesitter`
