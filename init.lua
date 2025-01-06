@@ -68,16 +68,11 @@ vim.opt.rtp:prepend(lazypath)
 --  You can also configure plugins after the setup call,
 --    as they will be available in your neovim runtime.
 require('lazy').setup({
-
-  -- NOTE: First, some plugins that don't require any configuration
-  -- Git related plugins
   'tpope/vim-fugitive',
   'tpope/vim-rhubarb',
   'nvim-neotest/nvim-nio',
-  -- Detect tabstop and shiftwidth automatically
-  'tpope/vim-sleuth',
-  -- Useful plugin to show you pending keybinds.
-  { 'folke/which-key.nvim',   opts = {} },
+  'tpope/vim-sleuth',                      -- Detect tabstop and shiftwidth automatically
+  { 'folke/which-key.nvim',   opts = {} }, -- Useful plugin to show you pending keybinds.
   -- NOTE: The import below can automatically add your own plugins, configuration, etc from `lua/custom/plugins/*.lua`
   --    You can use this folder to prevent any conflicts with this init.lua if you're interested in keeping
   --    up-to-date with whatever is in the kickstart repo.
@@ -250,6 +245,7 @@ local function telescope_live_grep_open_files()
     prompt_title = 'Live Grep in Open Files',
   }
 end
+
 vim.keymap.set('n', '<leader>s/', telescope_live_grep_open_files, { desc = '[S]earch [/]Grep in Open Files' })
 vim.keymap.set('n', '<leader>ss', require('telescope.builtin').builtin, { desc = '[S]earch [S]elect Telescope' })
 vim.keymap.set('n', '<leader>gf', require('telescope.builtin').git_files, { desc = 'Search [G]it [F]iles' })
