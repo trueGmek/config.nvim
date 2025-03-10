@@ -257,7 +257,6 @@ vim.keymap.set('n', '<leader>sG', ':LiveGrepGitRoot<cr>', { desc = '[S]earch by 
 vim.keymap.set('n', '<leader>sd', require('telescope.builtin').diagnostics, { desc = '[S]earch [D]iagnostics' })
 vim.keymap.set('n', '<leader>sr', require('telescope.builtin').resume, { desc = '[S]earch [R]esume' })
 
-vim.keymap.set('n', '<leader><leader>x', "<cmd>source %<CR>", { desc = 'E[x]ecute current file' })
 
 -- TABS
 vim.keymap.set({'n', 'v'}, '<leader><tab><tab>', '<cmd>tabnew<CR>', {desc = 'Open new [tab]'})
@@ -268,6 +267,9 @@ vim.keymap.set({'n', 'v'}, '<leader><tab>[', '<cmd> -tabnext<CR>', {desc = 'Go t
 vim.keymap.set({'n', 'v'}, '<leader><tab>f', '<cmd>tabfirst<CR>', {desc = 'Go to [f]irst [tab]'})
 vim.keymap.set({'n', 'v'}, '<leader><tab>l', '<cmd>tablast<CR>', {desc = 'Go to [l]ast [tab]'})
 
+
+local sourcing_keymaps = require('sourcing_keymap')
+sourcing_keymaps.SetUp()
 
 -- [[ Configure Treesitter ]]
 -- See `:help nvim-treesitter`
