@@ -1,4 +1,4 @@
-print("[LOADING]: telescope.lua")
+Log("telescope.lua", "LOADING")
 -- Fuzzy Finder (files, lsp, etc)
 return {
   'nvim-telescope/telescope.nvim',

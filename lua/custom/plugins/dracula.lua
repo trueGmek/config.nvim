@@ -1,4 +1,4 @@
-print("[LOADING]: dracula.lua")
+Log("dracula.lua", "LOADING")
 return {
   -- add dracula
   { "Mofiqul/dracula.nvim" },

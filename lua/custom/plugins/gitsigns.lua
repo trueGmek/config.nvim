@@ -1,4 +1,4 @@
-print("[LOADING]: gitsigns.lua")
+Log("gitsigns.lua", "LOADING")
 return {
   -- Adds git related signs to the gutter, as well as utilities for managing changes
   'lewis6991/gitsigns.nvim',

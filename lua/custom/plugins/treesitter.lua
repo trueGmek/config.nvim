@@ -1,4 +1,4 @@
-print("[LOADING]: treesitter.lua")
+Log("treesitter.lua", "LOADING")
 return {
   -- Highlight, edit, and navigate code
   'nvim-treesitter/nvim-treesitter',

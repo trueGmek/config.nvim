@@ -1,4 +1,4 @@
-print("[LOADING]: lsp.lua")
+Log("lsp.lua", "LOADING")
 return {
   -- LSP Configuration & Plugins
   'neovim/nvim-lspconfig',

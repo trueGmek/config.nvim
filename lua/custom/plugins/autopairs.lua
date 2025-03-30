@@ -1,6 +1,4 @@
--- File: lua/custom/plugins/autopairs.lua
---
-print("[LOADING]: autopairs.lua")
+Log("autopairs.lua", "LOADING")
 return {
   "windwp/nvim-autopairs",
   -- Optional dependency
