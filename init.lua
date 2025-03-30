@@ -73,6 +73,7 @@ require('lazy').setup({
   'nvim-neotest/nvim-nio',
   'tpope/vim-sleuth',                      -- Detect tabstop and shiftwidth automatically
   { 'folke/which-key.nvim',   opts = {} }, -- Useful plugin to show you pending keybinds.
+
   -- NOTE: The import below can automatically add your own plugins, configuration, etc from `lua/custom/plugins/*.lua`
   --    You can use this folder to prevent any conflicts with this init.lua if you're interested in keeping
   --    up-to-date with whatever is in the kickstart repo.
@@ -96,8 +97,7 @@ require('lazy').setup({
   --       These are some example plugins that I've included in the kickstart repository.
   --       Uncomment any of the lines below to enable them.
   -- require 'kickstart.plugins.autoformat',
-  require 'kickstart.plugins.debug',
-  require 'custom.glsl',
+  require  'kickstart.plugins.debug',
 }, {})
 
 -- [[ Setting options ]]

@@ -1,3 +1,4 @@
+print("[LOADING]: autocompletion.lua")
 return {
   -- Autocompletion
   'hrsh7th/nvim-cmp',

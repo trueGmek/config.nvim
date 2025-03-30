@@ -1,3 +1,4 @@
+print("[LOADING]: statusline.lua")
 return {
   -- Set lualine as statusline
   'nvim-lualine/lualine.nvim',

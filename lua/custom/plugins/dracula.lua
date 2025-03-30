@@ -1,3 +1,4 @@
+print("[LOADING]: dracula.lua")
 return {
   -- add dracula
   { "Mofiqul/dracula.nvim" },

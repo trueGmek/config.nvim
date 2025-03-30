@@ -1,5 +1,6 @@
 -- File: lua/custom/plugins/tree.lua
 
+print("[LOADING]: tree.lua")
 return {
   "nvim-tree/nvim-tree.lua",
   version = "*",
