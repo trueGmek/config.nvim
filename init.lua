@@ -421,6 +421,8 @@ require('which-key').register {
 -- Setup neovim lua configuration
 require('neodev').setup()
 
+-- Setup glsl configuration
+require('custom.glsl').setup()
 
 -- nvim-cmp supports additional completion capabilities, so broadcast that to servers
 local capabilities = vim.lsp.protocol.make_client_capabilities()
