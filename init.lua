@@ -52,14 +52,13 @@ require('lazy').setup({
     opts = {},
   },
   -- "gc" to comment visual regions/lines
-  {
-    'numToStr/Comment.nvim', opts = {}
-  },
+  { 'numToStr/Comment.nvim', opts = {} },
   -- NOTE: Next Step on Your Neovim Journey: Add/Configure additional "plugins" for kickstart
   --       These are some example plugins that I've included in the kickstart repository.
   --       Uncomment any of the lines below to enable them.
   -- require 'kickstart.plugins.autoformat',
-  require  'kickstart.plugins.debug',
+  require 'kickstart.plugins.debug',
+  { 'echasnovski/mini.nvim', version = false },
 }, {})
 
 -- [[ Setting options ]]
@@ -222,13 +221,13 @@ vim.keymap.set('n', '<leader>sr', require('telescope.builtin').resume, { desc = 
 vim.keymap.set('n', '<leader><leader>x', "<cmd>source %<CR>", { desc = 'E[x]ecute current file' })
 
 -- TABS
-vim.keymap.set({'n', 'v'}, '<leader><tab><tab>', '<cmd>tabnew<CR>', {desc = 'Open new [tab]'})
-vim.keymap.set({'n', 'v'}, '<leader><tab>d', '<cmd>tabclose<CR>', {desc = 'Close current [tab]'})
-vim.keymap.set({'n', 'v'}, '<leader><tab>o', '<cmd>tabonly<CR>', {desc = 'Close all [tab]s besides current one'})
-vim.keymap.set({'n', 'v'}, '<leader><tab>]', '<cmd>+tabnext<CR>', {desc = 'Go to next [tab]'})
-vim.keymap.set({'n', 'v'}, '<leader><tab>[', '<cmd> -tabnext<CR>', {desc = 'Go to previous [tab]'})
-vim.keymap.set({'n', 'v'}, '<leader><tab>f', '<cmd>tabfirst<CR>', {desc = 'Go to [f]irst [tab]'})
-vim.keymap.set({'n', 'v'}, '<leader><tab>l', '<cmd>tablast<CR>', {desc = 'Go to [l]ast [tab]'})
+vim.keymap.set({ 'n', 'v' }, '<leader><tab><tab>', '<cmd>tabnew<CR>', { desc = 'Open new [tab]' })
+vim.keymap.set({ 'n', 'v' }, '<leader><tab>d', '<cmd>tabclose<CR>', { desc = 'Close current [tab]' })
+vim.keymap.set({ 'n', 'v' }, '<leader><tab>o', '<cmd>tabonly<CR>', { desc = 'Close all [tab]s besides current one' })
+vim.keymap.set({ 'n', 'v' }, '<leader><tab>]', '<cmd>+tabnext<CR>', { desc = 'Go to next [tab]' })
+vim.keymap.set({ 'n', 'v' }, '<leader><tab>[', '<cmd> -tabnext<CR>', { desc = 'Go to previous [tab]' })
+vim.keymap.set({ 'n', 'v' }, '<leader><tab>f', '<cmd>tabfirst<CR>', { desc = 'Go to [f]irst [tab]' })
+vim.keymap.set({ 'n', 'v' }, '<leader><tab>l', '<cmd>tablast<CR>', { desc = 'Go to [l]ast [tab]' })
 
 
 -- [[ Configure Treesitter ]]
