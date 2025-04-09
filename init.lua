@@ -105,7 +105,6 @@ vim.o.termguicolors = true
 -- [[ Basic Keymaps ]]
 
 -- Keymaps for better default experience
--- See `:help vim.keymap.set()`
 vim.keymap.set({ 'n', 'v' }, '<Space>', '<Nop>', { silent = true })
 
 -- Remap for dealing with word wrap
@@ -113,8 +112,6 @@ vim.keymap.set('n', 'k', "v:count == 0 ? 'gk' : 'k'", { expr = true, silent = tr
 vim.keymap.set('n', 'j', "v:count == 0 ? 'gj' : 'j'", { expr = true, silent = true })
 
 -- Diagnostic keymaps
-vim.keymap.set('n', '[d', vim.diagnostic.goto_prev, { desc = 'Go to previous diagnostic message' })
-vim.keymap.set('n', ']d', vim.diagnostic.goto_next, { desc = 'Go to next diagnostic message' })
 vim.keymap.set('n', '<leader>e', vim.diagnostic.open_float, { desc = 'Open floating diagnostic message' })
 vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist, { desc = 'Open diagnostics list' })
 
@@ -229,6 +226,8 @@ vim.keymap.set({ 'n', 'v' }, '<leader><tab>[', '<cmd> -tabnext<CR>', { desc = 'G
 vim.keymap.set({ 'n', 'v' }, '<leader><tab>f', '<cmd>tabfirst<CR>', { desc = 'Go to [f]irst [tab]' })
 vim.keymap.set({ 'n', 'v' }, '<leader><tab>l', '<cmd>tablast<CR>', { desc = 'Go to [l]ast [tab]' })
 
+--Edit the rc
+vim.keymap.set('n','<leader>erc', '<cmd>e ~/.config/nvim/<CR>', {desc = '[E]dit [RC]'})
 
 -- [[ Configure Treesitter ]]
 -- See `:help nvim-treesitter`
@@ -236,7 +235,7 @@ vim.keymap.set({ 'n', 'v' }, '<leader><tab>l', '<cmd>tablast<CR>', { desc = 'Go 
 vim.defer_fn(function()
   require('nvim-treesitter.configs').setup {
     -- Add languages to be installed here that you want installed for treesitter
-    ensure_installed = { 'c', 'cpp', 'go', 'lua', 'python', 'rust', 'tsx', 'javascript', 'typescript', 'vimdoc', 'vim', 'bash' },
+    ensure_installed = { 'c', 'cpp', 'go', 'lua', 'python', 'rust', 'tsx', 'javascript', 'typescript', 'vimdoc', 'vim', 'bash', 'c_sharp' },
 
     -- Autoinstall languages that are not installed. Defaults to false (but you can change for yourself!)
     auto_install = false,
@@ -282,13 +281,13 @@ vim.defer_fn(function()
           [']M'] = '@function.outer',
           [']['] = '@class.outer',
         },
-        goto_previous_start = {
-          ['[m'] = '@function.outer',
-          ['[['] = '@class.outer',
-        },
         goto_previous_end = {
           ['[M'] = '@function.outer',
           ['[]'] = '@class.outer',
+        },
+        goto_previous_start = {
+          ['[m'] = '@function.outer',
+          ['[['] = '@class.outer',
         },
       },
       swap = {
@@ -327,6 +326,7 @@ local on_attach = function(_, bufnr)
   end, '[C]ode [A]ction')
 
   nmap('gd', require('telescope.builtin').lsp_definitions, '[G]oto [D]efinition')
+  nmap('gD', vim.lsp.buf.declaration, '[G]oto [D]eclaration')
   nmap('gr', require('telescope.builtin').lsp_references, '[G]oto [R]eferences')
   nmap('gI', require('telescope.builtin').lsp_implementations, '[G]oto [I]mplementation')
   nmap('<leader>D', require('telescope.builtin').lsp_type_definitions, 'Type [D]efinition')
@@ -338,12 +338,9 @@ local on_attach = function(_, bufnr)
   nmap('<C-k>', vim.lsp.buf.signature_help, 'Signature Documentation')
 
   -- Lesser used LSP functionality
-  nmap('gD', vim.lsp.buf.declaration, '[G]oto [D]eclaration')
   nmap('<leader>wa', vim.lsp.buf.add_workspace_folder, '[W]orkspace [A]dd Folder')
   nmap('<leader>wr', vim.lsp.buf.remove_workspace_folder, '[W]orkspace [R]emove Folder')
-  nmap('<leader>wl', function()
-    print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
-  end, '[W]orkspace [L]ist Folders')
+  nmap('<leader>wl', function() print(vim.inspect(vim.lsp.buf.list_workspace_folders())) end, '[W]orkspace [L]ist Folders')
 
   -- Create a command `:Format` local to the LSP buffer
   vim.api.nvim_buf_create_user_command(bufnr, 'Format', function(_)
