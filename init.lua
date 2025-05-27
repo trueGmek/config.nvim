@@ -11,7 +11,9 @@ vim.o.clipboard = "unnamedplus"
 vim.opt.shiftwidth = 4
 
 require("config.lazy")
-require("config.lsp_keymaps").setup()
+require("config.lsp").setup()
+require("config.unrealEngine").setup()
+require("config.telescope").setup()
 
 -- TODO: MAYBE?
 vim.keymap.set('n', '<C-j>', '<cmd>cnext<CR>')

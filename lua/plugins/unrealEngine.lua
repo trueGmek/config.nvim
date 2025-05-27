@@ -2,7 +2,6 @@ return {
   "mbwilding/UnrealEngine.nvim",
   lazy = false,
   dependencies = {
-    -- optional, this registers the Unreal Engine icon to .uproject files
     "nvim-tree/nvim-web-devicons",
   },
   keys = {
@@ -43,10 +42,8 @@ return {
     },
   },
   opts = {
-    auto_generate = true,     -- Auto generates LSP info when detected in CWD | default: false
-    auto_build = true,        -- Auto builds on save | default: false
-    engine_path =
-    "/home/gmek/UnrealEngine" -- Path to your UnrealEngine source directory, you can also provide a table of strings
-
+    auto_generate = true, -- Auto generates LSP info when detected in CWD | default: false
+    auto_build = false,   -- Auto builds on save | default: false
+    engine_path = '/home/gmek/UnrealEngine'
   }
 }
