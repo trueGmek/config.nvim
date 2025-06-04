@@ -9,6 +9,7 @@ vim.o.number = true
 vim.o.relativenumber = true
 vim.o.clipboard = "unnamedplus"
 vim.opt.shiftwidth = 4
+vim.o.smartcase = true;
 
 require("config.lazy")
 require("config.lsp").setup()
@@ -25,3 +26,5 @@ vim.api.nvim_create_autocmd('TextYankPost', {
     vim.highlight.on_yank()
   end
 })
+
+
