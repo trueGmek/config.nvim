@@ -1,5 +1,3 @@
-print "Hello world in my own config!"
-
 -- Make sure to setup `mapleader` and `maplocalleader` before
 -- loading lazy.nvim so that mappings are correct.
 -- This is also a good place to setup other settings (vim.opt)
@@ -9,7 +7,7 @@ vim.o.number = true
 vim.o.relativenumber = true
 vim.o.clipboard = "unnamedplus"
 vim.opt.shiftwidth = 4
-vim.o.smartcase = true;
+vim.o.ignorecase = true;
 
 require("config.lazy")
 require("config.lsp").setup()

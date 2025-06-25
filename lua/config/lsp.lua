@@ -10,7 +10,19 @@ M.setup = function()
   vim.keymap.set('n', '<leader>gi', builtin.lsp_implementations)
 
   vim.keymap.set('n', 'K',
-    function() vim.lsp.buf.hover { border = "single", max_height = 25, max_width = 120 } end, { desc = "Show hover custom" })
+    function() vim.lsp.buf.hover { border = "single", max_height = 25, max_width = 120 } end,
+    { desc = "Show hover custom" })
+
+  vim.diagnostic.config({
+    -- virtual_lines = true,
+    virtual_text = {
+      prefix = '●', -- Could be '■', '▶', etc.
+    },
+    signs = true,
+    underline = true,
+    update_in_insert = false,
+    severity_sort = true,
+  })
 end
 
 return M

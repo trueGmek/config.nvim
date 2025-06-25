@@ -8,6 +8,9 @@ return {
 
     config = function()
       require('telescope').setup {
+        defaults = {
+          path_display = { "filename_first" },
+        },
         extensions = {
           fzf = {
             fuzzy = true,                   -- false will only do exact matching
@@ -20,7 +23,6 @@ return {
       }
 
       require('telescope').load_extension('fzf')
-
     end
   }
 }

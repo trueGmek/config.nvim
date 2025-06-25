@@ -17,8 +17,8 @@ return {
         ['<C-b>'] = { 'scroll_documentation_up', 'fallback' },
         ['<C-f>'] = { 'scroll_documentation_down', 'fallback' },
         ['<C-k>'] = { 'show_signature', 'hide_signature', 'fallback' },
-        ['<C-p>'] = { 'snippet_forward', 'fallback' },
-        ['<C-n>'] = { 'snippet_backward', 'fallback' },
+        ['<C-n>'] = { 'snippet_forward', 'fallback' },
+        ['<C-p>'] = { 'snippet_backward', 'fallback' },
       },
       appearance = {
         nerd_font_variant = 'mono'
@@ -34,6 +34,7 @@ return {
       sources = {
         default = { 'lsp', 'path', 'snippets', 'buffer' },
       },
+      snippets = { preset = 'luasnip' },
       fuzzy = { implementation = "prefer_rust_with_warning" }
     },
     opts_extend = { "sources.default" }

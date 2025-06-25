@@ -5,9 +5,11 @@ return {
     local statusline = require 'mini.statusline'
     statusline.setup { use_icons = true }
 
+    local surround = require('mini.surround')
+    surround.setup()
+
     local comment = require 'mini.comment'
     comment.setup({
-
       mappings = {
         comment = 'gc',
         comment_line = 'gcc',

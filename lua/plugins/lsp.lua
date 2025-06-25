@@ -1,4 +1,4 @@
-return {
+local M = {
   'neovim/nvim-lspconfig',
   dependencies = {
     {
@@ -18,14 +18,18 @@ return {
     local config = require("lspconfig")
     local capabilities = require('blink.cmp').get_lsp_capabilities()
     config.lua_ls.setup { capabilities = capabilities }
+    config.basedpyright.setup { capabilities = capabilities }
     config.clangd.setup {
-      capabilities = capabilities, cmd = {
-      "clangd",
-      "--clang-tidy",
-      "--enable-config",
-      "--completion-style=detailed",
-      "--header-insertion=never",
-      "--all-scopes-completion",
-    } }
+      capabilities = capabilities,
+      cmd = {
+        "clangd",
+        "--clang-tidy",
+        "--enable-config",
+        "--completion-style=detailed",
+        "--header-insertion=never",
+        "--all-scopes-completion",
+      } }
   end,
 }
+
+return M
