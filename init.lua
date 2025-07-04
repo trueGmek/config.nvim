@@ -15,8 +15,8 @@ require("config.unrealEngine").setup()
 require("config.telescope").setup()
 
 -- TODO: MAYBE?
-vim.keymap.set('n', '<C-j>', '<cmd>cnext<CR>')
-vim.keymap.set('n', '<C-k>', '<cmd>cprev<CR>')
+-- vim.keymap.set('n', '<C-j>', '<cmd>cnext<CR>')
+-- vim.keymap.set('n', '<C-k>', '<cmd>cprev<CR>')
 
 vim.api.nvim_create_autocmd('TextYankPost', {
   desc = 'Highlight when yanking text',

@@ -12,7 +12,7 @@ return {
       harpoon:setup({})
       -- REQUIRED
 
-      vim.keymap.set("n", "<leader>a", function() harpoon:list():add() end)
+      vim.keymap.set("n", "<leader>a", function() harpoon:list():add() end, {desc = 'Add a file to harpoon list'})
       vim.keymap.set("n", "<C-e>", function() harpoon.ui:toggle_quick_menu(harpoon:list()) end)
 
       vim.keymap.set("n", "<C-h>", function() harpoon:list():select(1) end)
@@ -21,8 +21,11 @@ return {
       vim.keymap.set("n", "<C-s>", function() harpoon:list():select(4) end)
 
       -- Toggle previous & next buffers stored within Harpoon list
-      vim.keymap.set("n", "<C-S-P>", function() harpoon:list():prev() end)
-      vim.keymap.set("n", "<C-S-N>", function() harpoon:list():next() end)
+      vim.keymap.set("n", "<C-j>", function() harpoon:list():prev() end)
+      vim.keymap.set("n", "<C-k>", function() harpoon:list():next() end)
+
+      vim.api.nvim_create_user_command('HarpoonClear', function() harpoon:list():clear() end,
+        { desc = 'Clear Harpoon list' })
 
       -- basic telescope configuration
       if TELESCOPE then
