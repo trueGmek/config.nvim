@@ -12,7 +12,7 @@ return {
       harpoon:setup({})
       -- REQUIRED
 
-      vim.keymap.set("n", "<leader>a", function() harpoon:list():add() end, {desc = 'Add a file to harpoon list'})
+      vim.keymap.set("n", "<leader>a", function() harpoon:list():add() end, { desc = 'Add a file to harpoon list' })
       vim.keymap.set("n", "<C-e>", function() harpoon.ui:toggle_quick_menu(harpoon:list()) end)
 
       vim.keymap.set("n", "<C-h>", function() harpoon:list():select(1) end)
@@ -24,12 +24,13 @@ return {
       vim.keymap.set("n", "<C-j>", function() harpoon:list():prev() end)
       vim.keymap.set("n", "<C-k>", function() harpoon:list():next() end)
 
-      vim.api.nvim_create_user_command('HarpoonClear', function() harpoon:list():clear() end,
+      vim.api.nvim_create_user_command('HClear', function() harpoon:list():clear() end,
         { desc = 'Clear Harpoon list' })
 
       -- basic telescope configuration
       if TELESCOPE then
         local conf = require("telescope.config").values
+
         local function toggle_telescope(harpoon_files)
           local file_paths = {}
           for _, item in ipairs(harpoon_files.items) do
