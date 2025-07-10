@@ -13,6 +13,7 @@ require("config.lazy")
 require("config.lsp").setup()
 require("config.unrealEngine").setup()
 require("config.telescope").setup()
+require("config.dap").setup()
 
 -- TODO: MAYBE?
 -- vim.keymap.set('n', '<C-j>', '<cmd>cnext<CR>')
