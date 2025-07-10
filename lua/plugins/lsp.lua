@@ -21,6 +21,7 @@ local M = {
     config.basedpyright.setup { capabilities = capabilities }
     config.clangd.setup {
       capabilities = capabilities,
+      root_dir = require('lspconfig.util').root_pattern("compile_commands.json", ".clangd", "build.ninja", ".git"),
       cmd = {
         "clangd",
         "--clang-tidy",
