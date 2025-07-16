@@ -3,6 +3,7 @@ return {
     'saghen/blink.cmp',
     dependencies = { 'rafamadriz/friendly-snippets' },
     version = '1.*',
+    enabled = true,
     opts = {
       -- See :h blink-cmp-config-keymap for defining your own keymap
       keymap = {

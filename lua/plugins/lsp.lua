@@ -16,7 +16,14 @@ local M = {
   },
   config = function()
     local config = require("lspconfig")
-    local capabilities = require('blink.cmp').get_lsp_capabilities()
+    local status_ok, blink_cmp = pcall(require, 'blink.cmp')
+
+    if not status_ok then
+      vim.notify("Could not load module 'blink.cmp'", vim.log.levels.ERROR)
+      return
+    end
+
+    local capabilities = blink_cmp.get_lsp_capabilities()
     config.lua_ls.setup { capabilities = capabilities }
     config.basedpyright.setup { capabilities = capabilities }
     config.clangd.setup {
