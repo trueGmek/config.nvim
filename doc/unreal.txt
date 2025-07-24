@@ -1,0 +1,64 @@
+================================================================================
+INTRODUCTION                                                    *unreal.nvim*
+
+
+This document is a collection of notes that I make for myself. I find that the
+search workflow in NeoVim is productive and practical at the same time.
+
+================================================================================
+BEHVAIOR TREE                                                    *unreal.bt*
+
+This section contains nodes about creating native behavior tree nodes. 
+
+--------------------------------------------------------------------------------
+BEHAVIOR TREE NODE MEMORY                                             *unreal.bt.memory*
+
+In order for a node to have a memory you have to override three methods.
+
+Declaration;
+>cpp
+	virtual void InitializeMemory(UBehaviorTreeComponent& OwnerComp, uint8* NodeMemory, EBTMemoryInit::Type InitType) const override;
+	virtual void CleanupMemory(UBehaviorTreeComponent& OwnerComp, uint8* NodeMemory, EBTMemoryClear::Type CleanupType) const override;
+	virtual uint16 GetInstanceMemorySize() const override;
+<
+
+
+Definition:
+
+>cpp
+    void UBTTask::InitializeMemory( UBehaviorTreeComponent& OwnerComp, uint8* NodeMemory, EBTMemoryInit::Type InitType) const {
+      InitializeNodeMemory<FMemory>(NodeMemory, InitType); // provided by `"BehaviorTree/BTNode.h"`  
+    }
+
+    void UBTTask::CleanupMemory( UBehaviorTreeComponent& OwnerComp, uint8* NodeMemory, EBTMemoryClear::Type CleanupType) const {
+      CleanupNodeMemory<FMemory>(NodeMemory, CleanupType); // provided by `"BehaviorTree/BTNode.h"`  
+    }
+    uint16 UBTTask::GetInstanceMemorySize() const {
+      return sizeof(FMemory); }
+<
+
+If you want to access your memory, you have to cast it with:
+>cpp
+    FMemory* thisNodeMemory = CastInstanceNodeMemory<FMemory>(NodeMemory);
+<
+--------------------------------------------------------------------------------
+BEHAVIOR TREE SERVICE                                             *unreal.bt.service*
+
+If you want your nodes to tick remember to set `bTickIntervals = true;`
+To recieve `OnBecomeRelevant` and OnCeaseRelevant call `INIT_SERVICE_NODE_NOTIFY_FLAGS();` inside your constructor
+
+A valid declaration looks like this:
+>cpp
+    UBTS_SetAnimationFlag(const FObjectInitializer& ObjectInitializer = FObjectInitializer::Get());
+<
+
+And a valid definition:
+>cpp
+    UBTS_SetAnimationFlag::UBTS_SetAnimationFlag(const FObjectInitializer& ObjectInitializer) {
+      NodeName = "Setting animation flag";
+      bTickIntervals = false;
+      INIT_SERVICE_NODE_NOTIFY_FLAGS(); //provided by `"BehaviorTree/BTService.h"`  
+    }
+<
+
+vim:tw=78:ts=8:noet:ft=help:norl:
