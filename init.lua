@@ -8,6 +8,8 @@ vim.o.relativenumber = true
 vim.o.clipboard = "unnamedplus"
 vim.opt.shiftwidth = 4
 vim.o.ignorecase = true;
+vim.o.wrap = false;
+vim.o.spell = true;
 
 require("config.lazy")
 require("config.lsp").setup()
