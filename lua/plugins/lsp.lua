@@ -45,8 +45,13 @@ local M = {
 
     vim.lsp.config.omnisharp = {
       capabilities = capabilities,
-      root_dir = require('lspconfig.util').root_pattern("*.sln", ".git"),
-      settings = { FormattingOptions = { EnableEditorConfigSupport = true } },
+      root_markers = { "*.sln", ".git", ".editorconfig" },
+      settings = {
+        FormattingOptions = { EnableEditorConfigSupport = true },
+        RoslynExtensionsOptions = {
+          EnableAnalyzersSupport = true
+        }
+      },
       cmd = {
         "omnisharp",
         "--languageserver"
