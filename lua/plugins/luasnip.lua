@@ -6,6 +6,7 @@ return {
     config = function()
       local luasnip = require("luasnip")
       luasnip.filetype_extend("cpp", { "unreal" })
+      luasnip.filetype_extend("cs", { "unity" })
       require("luasnip.loaders.from_vscode").lazy_load()
     end,
   }

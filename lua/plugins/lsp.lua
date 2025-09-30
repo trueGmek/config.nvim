@@ -15,7 +15,6 @@ local M = {
     { 'saghen/blink.cmp' }
   },
   config = function()
-    local config = require("lspconfig")
     local status_ok, blink_cmp = pcall(require, 'blink.cmp')
 
     if not status_ok then
@@ -24,11 +23,16 @@ local M = {
     end
 
     local capabilities = blink_cmp.get_lsp_capabilities()
-    config.lua_ls.setup { capabilities = capabilities }
-    config.basedpyright.setup { capabilities = capabilities }
-    config.clangd.setup {
+
+    vim.lsp.config('*', {
+      root_markers = { '.git' },
+    })
+
+    vim.lsp.config.lua_ls = { capabilities = capabilities }
+    vim.lsp.config.basedpyright = { capabilities = capabilities }
+    vim.lsp.config.clangd = {
       capabilities = capabilities,
-      root_dir = require('lspconfig.util').root_pattern("compile_commands.json", ".clangd", "build.ninja", ".git"),
+      root_markers = { 'compile_commands.json', '.clangd', 'build.ninja', '.git', '.clang-format' },
       cmd = {
         "clangd",
         "--clang-tidy",
@@ -36,7 +40,20 @@ local M = {
         "--completion-style=detailed",
         "--header-insertion=never",
         "--all-scopes-completion",
-      } }
+      }
+    }
+
+    vim.lsp.config.omnisharp = {
+      capabilities = capabilities,
+      root_dir = require('lspconfig.util').root_pattern("*.sln", ".git"),
+      settings = { FormattingOptions = { EnableEditorConfigSupport = true } },
+      cmd = {
+        "omnisharp",
+        "--languageserver"
+      }
+    }
+
+    vim.lsp.enable({ 'lua_ls', 'clangd', 'omnisharp' })
   end,
 }
 
