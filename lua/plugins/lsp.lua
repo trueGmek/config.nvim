@@ -28,7 +28,15 @@ local M = {
       root_markers = { '.git' },
     })
 
-    vim.lsp.config.lua_ls = { capabilities = capabilities }
+    vim.lsp.config.lua_ls = {
+      capabilities = capabilities,
+      settings = {
+        format = {
+          tableSeparatorAlign = 'None',
+          tableConstructorAlign = 'None',
+        }
+      }
+    }
     vim.lsp.config.basedpyright = { capabilities = capabilities }
     vim.lsp.config.clangd = {
       capabilities = capabilities,
