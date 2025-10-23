@@ -57,7 +57,8 @@ local M = {
       settings = {
         FormattingOptions = { EnableEditorConfigSupport = true },
         RoslynExtensionsOptions = {
-          EnableAnalyzersSupport = true
+          EnableAnalyzersSupport = true,
+          EnableDecompilationSupport = true
         }
       },
       cmd = {
