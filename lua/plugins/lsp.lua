@@ -26,20 +26,19 @@ local M = {
 
     vim.lsp.config('*', {
       root_markers = { '.git' },
+      capabilities = capabilities,
     })
 
-    vim.lsp.config.lua_ls = {
-      capabilities = capabilities,
+    vim.lsp.config('lua_ls', {
       settings = {
         format = {
           tableSeparatorAlign = 'None',
           tableConstructorAlign = 'None',
         }
       }
-    }
-    vim.lsp.config.basedpyright = { capabilities = capabilities }
-    vim.lsp.config.clangd = {
-      capabilities = capabilities,
+    })
+
+    vim.lsp.config('clangd', {
       root_markers = { 'compile_commands.json', '.clangd', 'build.ninja', '.git', '.clang-format' },
       cmd = {
         "clangd",
@@ -49,11 +48,10 @@ local M = {
         "--header-insertion=never",
         "--all-scopes-completion",
       }
-    }
+    })
 
-    vim.lsp.config.omnisharp = {
-      capabilities = capabilities,
-      root_markers = { "*.sln", ".git", ".editorconfig" },
+    vim.lsp.config('omnisharp', {
+      root_markers = { ".sln", ".git", ".editorconfig" },
       settings = {
         FormattingOptions = { EnableEditorConfigSupport = true },
         RoslynExtensionsOptions = {
@@ -65,7 +63,7 @@ local M = {
         "omnisharp",
         "--languageserver"
       }
-    }
+    })
 
     vim.lsp.enable({ 'lua_ls', 'clangd', 'omnisharp' })
   end,
