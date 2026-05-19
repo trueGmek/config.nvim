@@ -62,10 +62,17 @@ local M = {
       cmd = {
         "omnisharp",
         "--languageserver"
+      },
+      cmd_env = {
+        DOTNET_GCHeapHardLimit = "4294967296"
       }
     })
 
-    vim.lsp.enable({ 'lua_ls', 'clangd', 'omnisharp' })
+    -- vim.lsp.config('openscad_ls', {
+    --   cmd = { "~/Dev/SCAD/openscad-LSP/target/release/openscad-lsp" }
+    -- })
+
+    vim.lsp.enable({ 'lua_ls', 'clangd', 'omnisharp', 'openscad_ls' })
   end,
 }
 

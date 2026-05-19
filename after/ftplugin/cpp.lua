@@ -1,1 +1,1 @@
-vim.keymap.set('n', '<leader>ch','<CMD>ClangdSwitchSourceHeader<CR>', {desc = 'ClangdSwitchSourceHeader'})
+vim.keymap.set('n', '<leader>ch','<CMD>LspClangdSwitchSourceHeader<CR>', {desc = 'ClangdSwitchSourceHeader'})
