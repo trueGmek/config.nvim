@@ -1,0 +1,16 @@
+================================================================================
+INTRODUCTION                                                            *freeRTOS*
+
+================================================================================
+Tasks                                                             *freeRTOS.Tasks*
+
+
+Remove a task from the RTOS kernels management. The task being deleted will be
+removed from all ready, blocked, suspended and event lists.
+>c
+    void vTaskDelete( TaskHandle_t xTask );
+<
+If `nullptr` is passed the current task will be deleted.
+
+
+vim:tw=78:ts=8:noet:ft=help:norl:

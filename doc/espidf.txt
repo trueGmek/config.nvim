@@ -1,0 +1,181 @@
+==========================================================================================
+INTRODUCTION                                                                        *espidf*
+
+Notes for quick look up about ESP-IDF.
+
+==========================================================================================
+Error Handling                                                                *espidf.error*
+>c
+    #include "esp_err.h"
+
+    ESP_ERROR_CHECK();
+<
+The `ESP_ERROR_CHECK()` macro, defined in `esp_err.h`, is used to handle unrecoverable
+errors. It functions similarly to the standard assert macro, but specifically checks
+whether an `esp_err_t` value is equal to `ESP_OK`. If the value is not `ESP_OK`, `ESP_ERROR_CHECK`
+prints a detailed error message and calls abort(), terminating the application.
+
+==========================================================================================
+Logs                                                                           *espidf.logs*
+
+In each file that uses the logging functionality, define the `TAG` variable.
+>c
+    // #define LOG_LOCAL_LEVEL ESP_LOG_VERBOSE // Optional: Increase log level that will be included in binary (only for this file)
+    #include "esp_log.h"
+    static const char* TAG = "MyModule";
+
+    ESP_LOGI(TAG, "Early log message %d", i++);
+<
+==========================================================================================
+Wi-Fi                                                                          *espidf.wifi*
+
+There are two ways of connecting to wifi with ESP-IDF: 
+- Using simplified helper function: `example_connect()`
+- Wi-Fi APIs
+
+
+==========================================================================================
+Wi-Fi initialization                                            *espidf.wifi.initialization*
+>c
+
+    #include "nvs_flash.h"
+    // System initialization
+    ESP_ERROR_CHECK(nvs_flash_init());
+    ESP_ERROR_CHECK(esp_netif_init());
+    ESP_ERROR_CHECK(esp_event_loop_create_default());
+<
+- `nvs_flash_init()`: Initializes the Non-Volatile-Storage (NVS) partition in flash, which
+allows user to store (a small amount of) information needed across reboots.
+
+- `esp_netif_init()`: Initialize the network interface (netif), which is the underlying
+TCP/IP stack.
+
+- `esp_event_loop_create_default()`: Creates a default event loop to allow components to
+declare events so that other components can register handlers.
+
+==========================================================================================
+Example_connect                                                *espidf.wifi.example_connect*
+
+NOTE: This doesn't really work with PlatformIO
+
+Mind that the network name and password have to be set with menuconfig. (`pio run menuconfig`)
+The functions to connect and disconnect to Wi-Fi are:
+>c
+    ESP_ERROR_CHECK(example_connect());
+    ESP_ERROR_CHECK(example_disconnect());
+<
+
+==========================================================================================
+Access point information                              *espidf.wifi.access_point_information*
+
+>c
+    // Print out Access Point Information
+    wifi_ap_record_t ap_info;
+    ESP_ERROR_CHECK(esp_wifi_sta_get_ap_info(&ap_info));
+    ESP_LOGI(TAG, "--- Access Point Information ---");
+    ESP_LOG_BUFFER_HEX("MAC Address", ap_info.bssid, sizeof(ap_info.bssid));
+    ESP_LOG_BUFFER_CHAR("SSID", ap_info.ssid, sizeof(ap_info.ssid));
+    ESP_LOGI(TAG, "Primary Channel: %d", ap_info.primary);
+    ESP_LOGI(TAG, "RSSI: %d", ap_info.rssi);
+<
+
+==========================================================================================
+Unified provisioning                                     *espidf.wifi.unified_provisioning*
+
+There's a tool that takes care of wifi provisioning (getting WiFi credentails to the SOC).
+More about it here:
+    https://docs.espressif.com/projects/esp-idf/en/stable/esp32/api-reference/provisioning/provisioning.html
+
+
+==========================================================================================
+Http Server                                                             *espidf.http_server*
+
+Espressif provides a library for setting up a http server on the board. Here's a
+simplified view on the API(Detailed descriptions will come later):
+
+    1. `httpd_start()` - creates the server and returns a server handle. The server is running
+    but has no logic assigned to it.
+
+    2. `httpd_register_uri_handler()` - register a handler to a specific URI. This is the step
+    where we create logic at the server.
+
+    3. `httpd_stop()` - stop the server when you are ready.
+
+
+
+==========================================================================================
+httpd_start                                                 *espidf.http_server.httpd_start*
+
+Creates an instance of HTTP server, allocate memory/resources for it depending upon the
+specified configuration and outputs a handle to the server instance. 
+
+The server has both, a listening socket (TCP) for HTTP traffic, and a control socket (UDP) for control signals,
+which are selected in a round robin fashion in the server task loop.
+
+The task priority and stack size are configurable during server instance creation by
+passing `httpd_config_t` structure to `httpd_start()`. TCP traffic is parsed as HTTP
+requests and, depending on the requested URI, user registered handlers are invoked which
+are supposed to send back HTTP response packets.
+
+Example: >c
+    httpd_handle_t start_webserver() {
+	httpd_handle_t server = NULL;
+	httpd_config_t config = HTTPD_DEFAULT_CONFIG();
+
+	if (httpd_start(&server, &config) == ESP_OK) {
+	    ESP_LOGI(TAG, "Server started successfully");
+	    return server;
+	}
+
+	ESP_LOGE(TAG, "Failed to start server");
+	return NULL;
+    }
+<
+
+==========================================================================================
+httpd_register_uri_handler                   *espidf.http_server.httpd_register_uri_handler*
+
+Register an URI handler. Call this method after the server is started
+
+>c
+    static esp_err_t uri_handler(httpd_req_t *req)
+    {
+	const char* resp_str = "<h1>Hello World</h1>";
+	httpd_resp_send(req, resp_str, HTTPD_RESP_USE_STRLEN);
+	return ESP_OK;
+    }
+
+    static const httpd_uri_t uri_config = {
+	.uri       = "/",               // the address at which the resource can be found
+	.method    = HTTP_GET,          // The HTTP method (HTTP_GET, HTTP_POST, ...)
+	.handler   = uri_handler,       // The function which process the request
+	.user_ctx  = NULL               // Additional user data for context
+    };
+
+    httpd_register_uri_handler(server, &uri_config);
+<
+
+
+==========================================================================================
+httpd_stop                                                  *espidf.http_server.httpd_stop*
+
+This stops the server with the provided handle and frees up any associated
+memory/resources. 
+
+This is a blocking function that first signals a halt to the server task and then waits
+for the task to terminate. While stopping, the task closes all open connections, removes
+registered URI handlers and resets all session context data to empty.
+
+Example: >c
+    // Function for stopping the webserver
+    void stop_webserver(httpd_handle_t server)
+    {
+    // Ensure handle is non NULL
+    if (server != NULL) {
+    // Stop the httpd server
+	     httpd_stop(server);
+	 }
+    }
+<
+
+vim:tw=90:ts=8:noet:ft=help:norl:
