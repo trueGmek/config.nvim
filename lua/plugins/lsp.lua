@@ -68,11 +68,11 @@ local M = {
       }
     })
 
-    -- vim.lsp.config('openscad_ls', {
-    --   cmd = { "~/Dev/SCAD/openscad-LSP/target/release/openscad-lsp" }
-    -- })
+    vim.lsp.config('openscad_lsp', {
+      cmd = { "/home/gmek/Dev/SCAD/openscad-LSP/target/release/openscad-lsp", "--stdio" },
+    })
 
-    vim.lsp.enable({ 'lua_ls', 'clangd', 'omnisharp', 'openscad_ls' })
+    vim.lsp.enable({ 'lua_ls', 'clangd', 'omnisharp', 'openscad_lsp' })
   end,
 }
 
