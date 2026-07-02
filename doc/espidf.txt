@@ -4,16 +4,29 @@ INTRODUCTION                                                                    
 Notes for quick look up about ESP-IDF.
 
 ==========================================================================================
-Error Handling                                                                *espidf.error*
+Error Handling                                                       *espidf.error-handling*
 >c
     #include "esp_err.h"
 
     ESP_ERROR_CHECK();
 <
 The `ESP_ERROR_CHECK()` macro, defined in `esp_err.h`, is used to handle unrecoverable
-errors. It functions similarly to the standard assert macro, but specifically checks
+errors. It functions similarly to the standard assert, but specifically checks
 whether an `esp_err_t` value is equal to `ESP_OK`. If the value is not `ESP_OK`, `ESP_ERROR_CHECK`
 prints a detailed error message and calls abort(), terminating the application.
+
+>c
+    #include "esp_check.h"
+
+    ESP_RETURN_ON_ERROR(x, log_tag, format, ...)
+<
+Macro which can be used to check the error code. If the code is not ESP_OK, it prints the
+message and returns. NOTE: Interesting macro for returning from a function when the value
+`x` is has an error, for example:
+>c
+  esp_err_t timerConfigRet = ledc_timer_config(&timer);
+  ESP_RETURN_ON_ERROR(timerConfigRet, mTag, "Found error when configuring ledc timer");
+<
 
 ==========================================================================================
 Logs                                                                           *espidf.logs*

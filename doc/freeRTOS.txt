@@ -12,5 +12,15 @@ removed from all ready, blocked, suspended and event lists.
 <
 If `nullptr` is passed the current task will be deleted.
 
+================================================================================
+Delay                                                             *freeRTOS.Delay*
 
+
+Delay a task for a given number of ticks. The actual time that the task
+remains blocked depends on the tick rate. The constant `portTICK_PERIOD_MS`,
+or the fucntion `pdMS_TO_TICKS(X)`, can be used to calculate real time from
+the tick rate - with the resolution of one tick period.
+>c
+    void vTaskDelay( const TickType_t xTicksToDelay );
+<
 vim:tw=78:ts=8:noet:ft=help:norl:
