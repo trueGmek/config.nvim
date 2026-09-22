@@ -1,0 +1,49 @@
+================================================================================
+INTRODUCTION                                                           *scad*
+
+Notes about working with OpenSCAD
+
+================================================================================
+Scalar to vector                                   *scad.scalar-to-vector*
+
+There's a function that allows you to convert scalar to a uniform vector3:
+>cpp
+    include <BOSL2/std.scad>
+    vec = scalar_vec3(scalar);
+<
+
+================================================================================
+Splitting                                   *scad.splitting* *scad.partitions*
+
+You can split you models to look inside of them with the `BOSL2` library.
+Splitting functions follow a convention like so:
+	`direction_half()`
+
+
+--------------------------------------------------------------------------------
+All Splitting methods           *scad.splitting.all* *scad.partitions.all*
+
+- `left_half()` - Hides the right half of an object along the Y-Z plane,
+leaving the left half.
+- `right_half()` - Hides the left half of an object along the Y-Z plane,
+leaving the right half.
+- `front_half()` - Hides the back half of an object along the X-Z plane,
+leaving the front half.
+- `back_half()` - Hides the front half of an object along the X-Z plane,
+leaving the back half.
+- `bottom_half()` - Hides the top half of an object along the X-Y plane,
+leaving the bottom half.
+- `top_half()` - Hides the bottom half of an object along the X-Y plane,
+leaving the top half.
+- `half_of()` - Hides half of of an object along specified cut plane.
+
+Example:
+>cpp
+    include <BOSL2/std.scad>
+    right_half() sphere(r=20);
+<
+
+NOTE: read more here https://github.com/BelfrySCAD/BOSL2/wiki/partitions.scad
+
+
+vim:tw=78:ts=8:noet:ft=help:norl:
