@@ -3,8 +3,26 @@ INTRODUCTION                                                           *scad*
 
 Notes about working with OpenSCAD
 
+
+--------------------------------------------------------------------------------
+For           *scad.for-loop*
+
+You can write for loops in SCAD:
+>cpp
+    for(variable = [start : increment : end]) {
+	//...
+    }
+>
+
+An example from my code:
+>cpp
+    for (i = [0:1:gear_count - 1]) {
+      left(i * spacing)
+	motor_gear(shaft_diam=1.6 + i * 0.1, debug=false);
+    }
+>
 ================================================================================
-Scalar to vector                                   *scad.scalar-to-vector*
+Scalar to vector                                   *scad.scalar_to_vector*
 
 There's a function that allows you to convert scalar to a uniform vector3:
 >cpp
@@ -44,6 +62,53 @@ Example:
 <
 
 NOTE: read more here https://github.com/BelfrySCAD/BOSL2/wiki/partitions.scad
+
+================================================================================
+Attachable                                   *scad.attachable*
+
+The concept of attachables comes from BOSL2, it's about attaching objects to
+anchors in various ways and combinations. All objects that come from BOSL2
+support attachables.
+
+Here are the examples of methods that work with attachables:
+- `cube([20,20,50], anchor=CENTER, spin=45, orient=UP+FWD);`
+- `position()`
+- `allign()`
+- `attach()`
+
+--------------------------------------------------------------------------------
+Anchors           *scad.attachable.anchors*
+
+Anchors are ways to describe relative positioning on an object.
+
+--------------------------------------------------------------------------------
+Creating your own attachable modules           *scad.attachable.creating*
+
+To make a shape attachable, you  need to wrap it with an `attachable()`
+module with a basic description of the shape's geometry and take three
+parameters: `anchor=`, `spin=`, and `orient=`.
+
+By default, the shape is expected to be centered at the origin. This fact is
+important, as this is how the `attachable()` knows the dimensions of your
+part: it assumes it is symetric around the origin. 
+
+The `attachable()` module expects exactly two children. The first will bethe
+shape to make attachable, and the second will be `children()`, literally.
+
+Example:
+>c
+    module motor_approximation(anchor = CENTER, spin = 0, orient = UP) {
+      tag_scope() {
+	diff(remove="remove", keep="keep")
+	  cuboid([15, 12, 18.6], chamfer=1, anchor=anchor, spin=spin, orient=orient) {
+	    attach(TOP) cyl(h=7, r=2.5, r2=2.5, anchor=BOTTOM)
+		attach(TOP) children();
+	  }
+      }
+    }
+<
+
+NOTE: Read more here https://github.com/BelfrySCAD/BOSL2/wiki/Tutorial-Attachment-Making
 
 
 vim:tw=78:ts=8:noet:ft=help:norl:
